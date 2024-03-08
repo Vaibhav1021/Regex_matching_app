@@ -1,7 +1,5 @@
 ## Regex_matching_app and email validation tool
 
-### Project Title
-
 This project is a Regex Tester and Email Validator web application developed using Flask. It allows users to test regular expressions and validate email addresses. The application provides a simple and intuitive interface for users to input text and patterns, with real-time validation results displayed on the page. With its lightweight design and powerful functionality, it's a valuable tool for developers and users working with regular expressions and email validation.
 
 ### Key Features:
