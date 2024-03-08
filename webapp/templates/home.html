@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester and Email Validator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="email"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .results,
+        .validation {
+            background-color: #555;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .results h3,
+        .validation h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .results ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .results ul li {
+            margin-bottom: 5px;
+        }
+        .validation p {
+            margin: 0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Regex Tester and Email Validator</h1>
+        
+        <!-- Regex Matching Section -->
+        <section>
+            <h2>Regex Tester</h2>
+            <form id="regexForm" action="/" method="POST">
+                <label for="input_string">Enter Text:</label>
+                <input type="text" id="input_string" name="input_string" value="{{ request.form.input_string }}">
+                <label for="pattern">Regex Pattern:</label>
+                <input type="text" id="pattern" name="pattern" value="{{ request.form.pattern }}">
+                <button type="submit">Test Regex</button>
+            </form>
+            <div class="results">
+                {% if regex_results %}
+                    <h3>Matches</h3>
+                    <ul>
+                        {% for result in regex_results %}
+                            <li>{{ result }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </section>
+        
+        <!-- Email Validation Section -->
+        <section>
+            <h2>Email Validator</h2>
+            <form id="emailForm" action="/" method="POST">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" value="{{ request.form.email }}">
+                <button type="submit">Validate Email</button>
+            </form>
+            <div class="validation">
+                {% if email_validation_result %}
+                    <p>{{ email_validation_result }}</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Preserve text in input fields after form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const regexForm = document.getElementById('regexForm');
+            const emailForm = document.getElementById('emailForm');
+
+            if (regexForm) {
+                const inputString = document.getElementById('input_string');
+                const pattern = document.getElementById('pattern');
+
+                regexForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const inputValue = inputString.value;
+                    const patternValue = pattern.value;
+                    // Perform form submission
+                    this.submit();
+                    // Populate input fields with previous values
+                    inputString.value = inputValue;
+                    pattern.value = patternValue;
+                });
+            }
+
+            if (emailForm) {
+                const email = document.getElementById('email');
+
+                emailForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const emailValue = email.value;
+                    // Perform form submission
+                    this.submit();
+                    // Populate input field with previous value
+                    email.value = emailValue;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
